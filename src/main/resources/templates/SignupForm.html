@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .content {
+            text-align: center;
+            background-color: #292929;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid #383838;
+            width: 100%; /* Ensures content takes full width on smaller screens */
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #66d9ef;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .continue-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #66d9ef;
+            color: #1e1e1e;
+            font-size: 16px;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .continue-button:hover {
+            background-color: #4fc0d3;
+        }
+
+        #subjectField {
+            display: none; /* Initially hides the subject field */
+        }
+    </style>
+    <script>
+        function toggleSubjectField() {
+            var roleSelect = document.getElementById("role");
+            var subjectField = document.getElementById("subjectField");
+
+            if (roleSelect.value === "ROLE_FACULTY") {
+                subjectField.style.display = "block";
+            } else {
+                subjectField.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div th:if="${successMessage}" class="alert alert-info">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="content">
+                <h2>User Registration</h2>
+                <form th:action="@{/registration}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="name">Name:</label>
+                        <input id="name" class="form-control" type="text" th:field="*{name}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="email">Email:</label>
+                        <input id="email" class="form-control" type="text" th:field="*{email}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password">Password:</label>
+                        <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Role:</label>
+                        <select id="role" class="form-control" th:field="*{role}" onchange="toggleSubjectField()">
+                            <option value="ROLE_ADMIN">ADMIN</option>
+                            <option value="ROLE_FACULTY">FACULTY</option>
+                            <option value="ROLE_STUDENT">STUDENT</option>
+                        </select>
+                        <div class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                    </div>
+                    <div class="form-group" id="subjectField">
+                        <label class="control-label" for="subject">Subject:</label>
+                        <input id="subject" class="form-control" type="text" th:field="*{subject}" required autofocus="autofocus"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required autofocus="autofocus">
+                        <label class="form-check-label" for="exampleCheck1">Agree terms and conditions</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="continue-button">Register</button>
+                        <span>Already registered? <a href="/" th:href="@{/signin}" class="btn btn-success">Login here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

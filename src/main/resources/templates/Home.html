@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance Management System</title>
+    <style>
+       body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .content {
+        text-align: center;
+        background-color: #292929;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        border: 1px solid #383838;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+        color: #66d9ef;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .continue-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #66d9ef;
+        color: #1e1e1e;
+        font-size: 16px;
+        text-decoration: none;
+        border: none;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    .continue-button:hover {
+        background-color: #4fc0d3;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <h1>Welcome to Attendance Management System!</h1>
+        <p>National Educational Institute</p>
+        <a  th:href="@{/register}" class="continue-button">Register</a>
+        <a  th:href="@{/admin/dashboard}" class="continue-button">Admin Dashboard</a>
+        <a  th:href="@{/faculty/dashboard}" class="continue-button">Faculty Dashboard</a>
+        <a  th:href="@{/student/dashboard}" class="continue-button">Student Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>
